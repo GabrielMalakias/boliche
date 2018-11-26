@@ -1,0 +1,19 @@
+default: &default
+  host: localhost
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  username: boliche
+  password: boliche
+
+development:
+  <<: *default
+  database: boliche_dev
+
+test:
+  <<: *default
+  database: boliche_test
+
+production:
+  <<: *default
+  database: boliche_prod
