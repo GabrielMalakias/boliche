@@ -15,10 +15,22 @@ class FrameService
     if frame.finished?
       case
       when frame.shots.first.strike?
+        # pode voltar 2 frames
+        # se o anterior for strike volta dois e soma senao soma o atual
+        # se o anterior for spare volta 1 e soma shot atual
+
+        frame.update_attribute(:score, 10)
         frame.strike!
       when frame.shots.sum(:knocked_down_pins) == 10
+
+        # volta 1 frame
+        # se anterior for strike soma dois shots e coloca no score
+        # senao coloca soma um shot no score
+
+        frame.update_attribute(:score, 10)
         frame.spare!
       else
+        frame.update_attribute(:score, frame.shots.sum(:knocked_down_pins))
         frame.regular!
       end
     end

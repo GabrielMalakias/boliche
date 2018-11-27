@@ -6,21 +6,15 @@ class GamesController < ApplicationController
   end
 
   def show
-    game = service.find(params[:id])
+    @game = service.find(params[:id])
 
-    render json: serialize(game)
-  end
-
-  def frames
-    frames = frame_service.find_by_game(params[:id])
-
-    render json: serialize_frames(frames)
+    render 'games/show', status: :ok
   end
 
   def shot
-    game = service.shot(params[:id], clean_params)
+    @game = service.shot(params[:id], clean_params)
 
-    render json: serialize(game), status: :created
+    render 'games/show', status: :created
   end
 
   private

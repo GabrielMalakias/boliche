@@ -1,8 +1,8 @@
 class PlayersController < ApplicationController
   def create
-    post = service.create(create_params)
+    @player = service.create(create_params)
 
-    render json: post, status: :created
+    render 'players/create', status: :created
   end
 
   private

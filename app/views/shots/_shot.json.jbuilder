@@ -1,0 +1,1 @@
+json.knocked_down_pins shot.knocked_down_pins
