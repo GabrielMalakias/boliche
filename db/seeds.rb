@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#
+#
+#
+(1..3).to_a.map do |number|
+  Player.create(name: "Player number #{number}")
+end
+
+Game.create(current_player: Player.first, players: Player.all)

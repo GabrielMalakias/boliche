@@ -1,4 +1,9 @@
 class Shot < ApplicationRecord
-  has_one :player
-  has_one :game
+  STRIKE = 10
+
+  belongs_to :frame
+
+  def strike?
+    knocked_down_pins == STRIKE
+  end
 end

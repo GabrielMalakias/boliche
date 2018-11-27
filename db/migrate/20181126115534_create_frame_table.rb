@@ -5,6 +5,7 @@ class CreateFrameTable < ActiveRecord::Migration[5.2]
       t.references :game
       t.integer :score
       t.integer :number
+      t.integer :status, default: 0
     end
   end
 end

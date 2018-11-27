@@ -1,8 +1,8 @@
 class GamesController < ApplicationController
   def create
-    game = service.create(clean_params)
+    @game = service.create(clean_params)
 
-    render json: serialize(game), status: :created
+    render 'games/create', status: :created
   end
 
   def show
@@ -26,7 +26,9 @@ class GamesController < ApplicationController
   private
 
   def serialize(game)
-    GameSerializer.new(game).serialized_json
+    options = { include: [:frames, :'frames.shots', :'frames.shots'] }
+
+    GameSerializer.new(game, options).serialized_json
   end
 
   def serialize_frames(frames)

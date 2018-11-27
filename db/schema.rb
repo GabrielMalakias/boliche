@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2018_11_26_120319) do
     t.bigint "game_id"
     t.integer "score"
     t.integer "number"
+    t.integer "status", default: 0
     t.index ["game_id"], name: "index_frames_on_game_id"
     t.index ["player_id"], name: "index_frames_on_player_id"
   end
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 2018_11_26_120319) do
   create_table "games", force: :cascade do |t|
     t.bigint "current_player_id"
     t.bigint "player_id"
+    t.integer "frame_number", default: 0
     t.index ["current_player_id"], name: "index_games_on_current_player_id"
     t.index ["player_id"], name: "index_games_on_player_id"
   end
@@ -44,10 +46,8 @@ ActiveRecord::Schema.define(version: 2018_11_26_120319) do
 
   create_table "shots", force: :cascade do |t|
     t.bigint "frame_id"
-    t.bigint "player_id"
     t.integer "knocked_down_pins"
     t.index ["frame_id"], name: "index_shots_on_frame_id"
-    t.index ["player_id"], name: "index_shots_on_player_id"
   end
 
 end

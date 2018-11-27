@@ -2,17 +2,24 @@ class GameService
   def create(params)
     players = find_players(params)
 
-    start(players, players.last).tap do |game|
+    start(players).tap do |game|
       frame_service.start(game, players)
     end
   end
 
   def shot(id, params)
-    game = find_game(params[:id])
-    player = current_player(game)
-    update_current_player(player)
+    game = find_game(id)
+    frame = find_frame(game.frames, game.current_player, game.frame_number)
 
-    shot_service.create(game, player, params[:knocked_down_pins])
+    frame = frame_service.shot(frame, params[:knocked_down_pins])
+
+    next_frame(game) if frame.finished?
+
+    game.reload
+  end
+
+  def find_frame(frames, current_player, number)
+    frames.where(player: current_player, number: number).first
   end
 
   def find(id)
@@ -21,16 +28,30 @@ class GameService
 
   private
 
-  def start(players, current_player)
+  def next_frame(game)
+    attributes = {}
+
+    if game.current_frame_finished?
+      attributes = {
+        current_player: game.players.first,
+        frame_number: game.frame_number + 1
+      }
+    else
+      current_player_index = game.players.index(game.current_player)
+      attributes = {
+        current_player: game.players[current_player_index + 1]
+      }
+    end
+
+    game.update_attributes(attributes)
+  end
+
+  def start(players)
     Game.create(players: players, current_player: players.first)
   end
 
   def update_current_player(player)
     game.update_attribute(current_player: player)
-  end
-
-  def current_player(game)
-    current_player_service.player(game)
   end
 
   def find_players(params)
@@ -39,7 +60,7 @@ class GameService
 
   def find_game(id)
     Game.where(id: id)
-      .joins(:frames)
+      .includes(:frames)
       .first
   end
 
@@ -49,13 +70,5 @@ class GameService
 
   def player_service
     PlayerService.new
-  end
-
-  def shot_service
-    ShotService.new
-  end
-
-  def current_player_service
-    CurrentPlayerService.new
   end
 end

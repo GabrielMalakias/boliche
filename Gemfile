@@ -8,8 +8,7 @@ gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'fast_jsonapi'
-gem 'oj'
+gem 'jbuilder'
 
 group :development, :test do
   gem 'pry'
