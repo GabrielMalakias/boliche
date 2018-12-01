@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   resources :games, only: [:create, :show] do
     member do
       post :shot
-      get :frames
     end
   end
 end

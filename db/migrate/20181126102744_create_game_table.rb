@@ -3,6 +3,8 @@ class CreateGameTable < ActiveRecord::Migration[5.2]
     create_table :games do |t|
       t.references :current_player, :player
       t.integer :frame_number, default: 0
+      t.integer :status, default: 0
+      t.jsonb :score, null: false, default: '{}'
     end
   end
 end

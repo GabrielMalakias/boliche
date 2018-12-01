@@ -1,5 +1,6 @@
 class Shot < ApplicationRecord
   STRIKE = 10
+  SPARE = STRIKE
 
   belongs_to :frame
 

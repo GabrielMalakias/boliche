@@ -8,7 +8,9 @@ class PlayerTest < ActionDispatch::IntegrationTest
       post "/players", params: { name: name }, as: :json
     end
 
+    expected_response = { "data" => {"id" => Player.last.id, "name" => name} }
+
     assert_response :success
-    assert_equal({"id" => Player.last.id, "name" => name}, response.parsed_body)
+    assert_equal(expected_response, response.parsed_body)
   end
 end

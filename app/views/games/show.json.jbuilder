@@ -5,4 +5,5 @@ json.data do
 
   json.players @game.players, partial: 'players/player', as: :player
   json.frames @game.frames, partial: 'frames/frame', as: :frame
+  json.scores @game.scores, partial: 'scores/score', as: :score
 end

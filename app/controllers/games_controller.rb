@@ -1,43 +1,35 @@
 class GamesController < ApplicationController
   def create
-    @game = service.create(clean_params)
+    @game = game_creator_service.()
 
     render 'games/create', status: :created
   end
 
   def show
-    @game = service.find(params[:id])
+    @game = game_finder_service.by_id(params[:id])
 
     render 'games/show', status: :ok
   end
 
   def shot
-    @game = service.shot(params[:id], clean_params)
+    @game = game_shot_service.call
 
     render 'games/show', status: :created
+  rescue Game::ShotService::EndedError
+    head :precondition_failed
   end
 
   private
 
-  def serialize(game)
-    options = { include: [:frames, :'frames.shots', :'frames.shots'] }
-
-    GameSerializer.new(game, options).serialized_json
+  def game_shot_service
+    Game::ShotService.new(params[:id], params[:game][:knocked_down_pins])
   end
 
-  def serialize_frames(frames)
-    FrameSerializer.new(frames).serialized_json
+  def game_finder_service
+    Game::FinderService.new
   end
 
-  def service
-    GameService.new
-  end
-
-  def frame_service
-    FrameService.new
-  end
-
-  def clean_params
-    params.require(:game).permit!
+  def game_creator_service
+    Game::CreatorService.new(params[:game][:players])
   end
 end

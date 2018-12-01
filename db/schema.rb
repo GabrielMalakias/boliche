@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_26_120319) do
+ActiveRecord::Schema.define(version: 2018_12_01_122547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2018_11_26_120319) do
     t.bigint "current_player_id"
     t.bigint "player_id"
     t.integer "frame_number", default: 0
+    t.integer "status", default: 0
+    t.jsonb "score", default: "{}", null: false
     t.index ["current_player_id"], name: "index_games_on_current_player_id"
     t.index ["player_id"], name: "index_games_on_player_id"
   end
@@ -42,6 +44,14 @@ ActiveRecord::Schema.define(version: 2018_11_26_120319) do
 
   create_table "players", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.bigint "game_id"
+    t.bigint "player_id"
+    t.integer "points"
+    t.index ["game_id"], name: "index_scores_on_game_id"
+    t.index ["player_id"], name: "index_scores_on_player_id"
   end
 
   create_table "shots", force: :cascade do |t|
