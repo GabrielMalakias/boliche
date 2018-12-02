@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2018_12_01_122547) do
     t.bigint "player_id"
     t.integer "frame_number", default: 0
     t.integer "status", default: 0
-    t.jsonb "score", default: "{}", null: false
     t.index ["current_player_id"], name: "index_games_on_current_player_id"
     t.index ["player_id"], name: "index_games_on_player_id"
   end

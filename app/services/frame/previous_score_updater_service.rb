@@ -27,7 +27,7 @@ class Frame
     end
 
     def calculate_strike_score(previous_frame)
-      new_score = Shot::STRIKE + current_frame.knocked_down_pins
+      new_score = Shot::STRIKE + current_frame.two_shots_knocked_down_pins
 
       frame_updater_service(previous_frame)
         .single_update(:score, new_score)
@@ -42,7 +42,7 @@ class Frame
     end
 
     def calculate_previous_of_previous_frame(frame, previous_frame)
-      new_score = Shot::STRIKE + previous_frame.knocked_down_pins + current_frame.first_shot.knocked_down_pins
+      new_score = Shot::STRIKE + previous_frame.two_shots_knocked_down_pins + current_frame.first_shot.knocked_down_pins
 
       frame_updater_service(frame)
         .single_update(:score, new_score)

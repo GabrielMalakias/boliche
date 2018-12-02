@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PlayerTest < ActionDispatch::IntegrationTest
+class PlayerIntegrationTest < ActionDispatch::IntegrationTest
   def test_create
     name = 'Inigo Montoya'
 

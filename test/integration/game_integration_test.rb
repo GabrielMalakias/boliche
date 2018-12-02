@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GameTest < ActionDispatch::IntegrationTest
+class GameIntegrationTest < ActionDispatch::IntegrationTest
   def test_create
     player_1 = Player.create(name: 'Inigo Montoya')
     player_2 = Player.create(name: 'Montoya')
