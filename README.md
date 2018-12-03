@@ -1,4 +1,4 @@
-Boliche
+# Boliche
 
 Boliche is the portuguese word for bowling, this project is an API for a bowling game.
 
@@ -43,6 +43,7 @@ Request body:
 
 Response:
 201 Created | 422 Precondition Failed
+```json
 {
     "data": {
         "id": 30,
@@ -54,6 +55,7 @@ Response:
         ]
     }
 }
+
 
 ### Create Shot
 POST http://localhost:3000/games/30/shot
@@ -140,20 +142,7 @@ Response:
                 "player": "Player number 1",
                 "number": 3,
                 "status": "pending",
-                "shots": [
-                    {
-                        "knocked_down_pins": 1
-                    },
-                    {
-                        "knocked_down_pins": 9
-                    },
-                    {
-                        "knocked_down_pins": 9
-                    },
-                    {
-                        "knocked_down_pins": 9
-                    }
-                ]
+                "shots": []
             },
             {
                 "score": null,
