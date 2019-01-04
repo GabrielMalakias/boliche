@@ -211,5 +211,3 @@ bundle exec rake db:create db:migrate
 bundle exec rails s
 ```
 
-## Maintainers
-[Gabriel Malaquias](mailto:gabriel07malakias@gmail.com)
