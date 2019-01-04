@@ -55,7 +55,7 @@ Response:
         ]
     }
 }
-
+```
 
 ### Create Shot
 POST http://localhost:3000/games/30/shot
